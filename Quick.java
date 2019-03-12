@@ -1,8 +1,26 @@
+import java.util.*;
+
 public class Quick{
     /*return the value that is the kth smallest value of the array. k=0 is the smallest
    */
-   public void quickselect(int[] data, int k) {
-
+   public static int quickselect(int[] data, int k) {
+     int start = 0;
+     int end = data.length - 1;
+     System.out.println(Arrays.toString(data));
+     while (true) {
+       int current = partition(data, start, end);
+       System.out.println("\n" + current);
+       System.out.println(Arrays.toString(data));
+       if (current > k) {
+         end = current - 1;
+       }
+       if (current < k) {
+         start = current - 1;
+       }
+       if (current == k) {
+         return data[current];
+       }
+     }
    }
 
    /*Modify the array such that:
@@ -15,9 +33,9 @@ public class Quick{
   */
    public static int partition(int[] ary, int start, int end) {
      Random random = new Random();
-     int rand = Math.abs(random.nextInt()) % (end - start - 1);
+     int rand = Math.abs(random.nextInt()) % (end - start);
      int target = ary[rand];
-     System.out.println("rand: " + rand + "target: "  + target);
+     //System.out.println("rand: " + rand + "target: "  + target);
      ary[rand] = ary[start];
      ary[start] = target;
      int begin = start;
@@ -45,5 +63,10 @@ public class Quick{
        return start-1;
      }
      return 0;
+   }
+
+   public static void main(String[] args) {
+     int[] ary = new int[] {1123,222,54,16,32,543,433,1213,43534,65435,6554,12,65,14,87,43,123,765};
+     quickselect(ary,8);
    }
 }
