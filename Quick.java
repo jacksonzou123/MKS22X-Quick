@@ -22,6 +22,19 @@ public class Quick{
      return data[current];
    }
 
+   public static void quickSort(int[] ary) {
+     quickSortH(ary, 0, ary.length-1);
+   }
+
+   public static void quickSortH(int[] ary, int start, int end) {
+     if (end - start > 0) {
+       int current = partition(ary, start, end);
+       quickSortH(ary, 0, current - 1);
+       quickSortH(ary, current + 1, end);
+     }
+   }
+
+
    /*Modify the array such that:
   *1. Only the indices from start to end inclusive are considered in range
   *2. A random index from start to end inclusive is chosen, the corresponding
@@ -43,8 +56,9 @@ public class Quick{
      ary[start] = target;
      int begin = start;
      start++;
+     boolean back = true;
      while (start < end) {
-       if (target >= ary[start]) {
+       if (target > ary[start]) {
          start++;
        }
        if (target < ary[start]) {
@@ -52,6 +66,19 @@ public class Quick{
          ary[end] = ary[start];
          ary[start] = swap;
          end--;
+       }
+       if (target == ary[start]) {
+         if (back) {
+           int swap = ary[end];
+           ary[end] = ary[start];
+           ary[start] = swap;
+           end--;
+           back = false;
+         }
+         else {
+           start++;
+           back = true;
+         }
        }
      }
      //System.out.println(start);
@@ -73,16 +100,10 @@ public class Quick{
      Random random = new Random();
      int[] ary = new int[Integer.parseInt(args[0])];
      for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-       ary[i] = random.nextInt() % 100;
+       ary[i] = random.nextInt() % 10;
      }
-     int f = quickSelect(ary,15);
-     boolean correct = true;
-     for (int j = 0; j < 15; j++) {
-       if (ary[j] > ary[15]) {
-         correct = false;
-       }
-
-     }
-     System.out.println(correct);
+     int f = partition(ary,0,19);
+     System.out.println("index: " + f);
+     System.out.println(Arrays.toString(ary));
    }
 }
