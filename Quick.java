@@ -3,10 +3,9 @@ import java.util.*;
 public class Quick{
     /*return the value that is the kth smallest value of the array. k=0 is the smallest
    */
-   public static int quickSelect(int[] data, int k) {
+   public static int quickselect(int[] data, int k) {
      int start = 0;
      int end = data.length - 1;
-     System.out.println(Arrays.toString(data));
      int current = 0;
      while (current != k) {
        current = partition(data, start, end);
