@@ -26,12 +26,27 @@ public class Quick{
    }
 
    public static void quickSortH(int[] ary, int start, int end) {
-     if (start >= end) {
+     if (end - start > 10) {
+       insertionSort(ary,start,end);
        return;
      }
      int current = partition(ary, start, end);
      quickSortH(ary, start, current - 1);
      quickSortH(ary, current + 1, end);
+   }
+
+   private static void insertionSort(int[] ary, int start, int end) {
+     int len = end - start + 1;
+     for (int i = 1; i < len; i++) {
+       int hold = data[i+start];
+       int index = i-1;
+       while (index >= i && ary[index+start] > hold) {
+         ary[index+start] = ary[index+start];
+         index-=1;
+       }
+       data[index+start] = hold;
+     }
+     }
    }
 
 
