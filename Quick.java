@@ -6,7 +6,7 @@ public class Quick{
    public static int quickselect(int[] data, int k) {
      int start = 0;
      int end = data.length - 1;
-     int current = 0;
+     int current = -1;
      while (current != k) {
        current = partition(data, start, end);
        //System.out.println("\n" + current);
@@ -15,7 +15,7 @@ public class Quick{
          end = current - 1;
        }
        if (current < k) {
-         start = current + 1;
+         start = current;
        }
      }
      return data[current];
@@ -25,9 +25,8 @@ public class Quick{
      quickSortH(ary, 0, ary.length-1);
    }
 
-   public static void quickSortH(int[] ary, int start, int end) {
-     if (end - start > 10) {
-       insertionSort(ary,start,end);
+   private static void quickSortH(int[] ary, int start, int end) {
+     if (start >= end) {
        return;
      }
      int current = partition(ary, start, end);
@@ -35,19 +34,7 @@ public class Quick{
      quickSortH(ary, current + 1, end);
    }
 
-   private static void insertionSort(int[] ary, int start, int end) {
-     int len = end - start + 1;
-     for (int i = 1; i < len; i++) {
-       int hold = data[i+start];
-       int index = i-1;
-       while (index >= i && ary[index+start] > hold) {
-         ary[index+start] = ary[index+start];
-         index-=1;
-       }
-       data[index+start] = hold;
-     }
-     }
-   }
+
 
 
    /*Modify the array such that:
@@ -63,7 +50,7 @@ public class Quick{
        return ary[start];
      }
      Random random = new Random();
-     int rand = Math.abs(random.nextInt()) % (end - start) + start;
+     int rand = (Math.abs(random.nextInt()) % (end - start + 1)) + start;
 
      //System.out.println(rand);
      int target = ary[rand];
